@@ -6,13 +6,13 @@ class MapComponent {
     this.map = null;
     this.pointStyle = new ol.style.Style({
         image: new ol.style.Icon(({
-            scale: 0.7,
+            scale: 0.15,
             rotateWithView: false,
             anchor: [0.5, 1],
             anchorXUnits: 'fraction',
             anchorYUnits: 'fraction',
             opacity: 1,
-            src: 'http://raw.githubusercontent.com/jonataswalker/map-utils/master/images/marker.png'
+            src: 'http://lessthan41.github.io/OL_Practice/Map_init/image/pointer.png'
         })),
         zIndex: 5
     });
