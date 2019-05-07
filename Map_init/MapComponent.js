@@ -4,18 +4,28 @@ class MapComponent {
     this.coorContainer = new Array();
     this.mousePositionControl = null;
     this.map = null;
-    this.pointStyle = new ol.style.Style({
-        image: new ol.style.Icon(({
-            scale: 0.15,
-            rotateWithView: false,
-            anchor: [0.5, 1],
-            anchorXUnits: 'fraction',
-            anchorYUnits: 'fraction',
-            opacity: 1,
-            src: 'http://lessthan41.github.io/OL_Practice/Map_init/image/pointer.png'
-        })),
-        zIndex: 5
-    });
+    this.pointStyle = [
+      new ol.style.Style({
+          image: new ol.style.Circle({
+              radius: 3,
+              stroke: new ol.style.Stroke({
+                  color: '#e1dee6'
+              })
+          })
+      }),
+      new ol.style.Style({
+          image: new ol.style.Icon(({
+              scale: 0.1,
+              rotateWithView: false,
+              anchor: [0.5, 1],
+              anchorXUnits: 'fraction',
+              anchorYUnits: 'fraction',
+              opacity: 1,
+              src: 'http://lessthan41.github.io/OL_Practice/Map_init/image/pointer.png'
+          })),
+          zIndex: 5
+      })
+    ];
   }
 
   render () {
@@ -51,10 +61,11 @@ class MapComponent {
   }
 
   addMarker () {
+
     this.coorContainer.push(this.getMousePosition());
     let feature = this.coorContainer.slice();
     let coorCount = 0;
-    for(var i=0; i<feature.length; i++) { // for i in coorCintainer add Feature
+    for(var i=0; i<feature.length; i++) { // for i in coorCintainer add Feature and set style
       feature[i] = new ol.Feature(new ol.geom.Point(this.coorContainer[coorCount]));
       feature[i].setStyle(this.pointStyle);
       coorCount++;
