@@ -3,10 +3,18 @@ body {
   font-size: 14px;
   line-height: 16px;
 }
-
+.container {
+  display: flex;
+  justify-content: center;
+}
+.paddingDiv {
+  padding: 10px;
+}
 #map {
-  margin: 0 auto;
   height: 600px;
   width: 800px;
   border: solid #7199a5;
+}
+.Btndiv, #mouse-position {
+  margin-top: 5px;
 }

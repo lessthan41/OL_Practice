@@ -15,5 +15,10 @@ $(function () {
       $('#map').off('mouseup mousemove', handler);
     });
   });
-  
+
+  // clearBtn onclick
+  $('#clearBtn').on('click', function () {
+    dashboard.clearBtn();
+  })
+
 });

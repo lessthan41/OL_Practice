@@ -60,9 +60,28 @@ class MapComponent {
       });
   }
 
+  // Add pointer
   addMarker () {
-
     this.coorContainer.push(this.getMousePosition());
+    this.relocate();
+  }
+
+  // Clear Pointer
+  removeMarker () {
+    this.coorContainer = [];
+    this.relocate();
+  }
+
+  // Get Coordinate and Return
+  getMousePosition () {
+    let currentPosition = $('#mouse-position').text();
+    let lng = parseFloat(currentPosition.substring(0, 8));
+    let lat = parseFloat(currentPosition.substring(10));
+    return (ol.proj.fromLonLat([lng, lat]));
+  }
+
+  // Relocate marker
+  relocate () {
     let feature = this.coorContainer.slice();
     let coorCount = 0;
     for(var i=0; i<feature.length; i++) { // for i in coorCintainer add Feature and set style
@@ -72,17 +91,7 @@ class MapComponent {
     }
     let source = new ol.source.Vector ({ features: feature });
     let pointLayer = new ol.layer.Vector ({ source: source });
-    this.map.getLayers().getArray()[1] = pointLayer;
-  }
-
-  // Get Coordinate and Return
-  getMousePosition () {
-    let currentPosition = $('#mouse-position').text();
-    let lng = parseFloat(currentPosition.substring(0, 8));
-    let lat = parseFloat(currentPosition.substring(10));
-    // console.log(currentPosition);
-    // console.log(currentPosition.substring(0, 8)); // longitude
-    // console.log(currentPosition.substring(10)); // latitude
-    return (ol.proj.fromLonLat([lng, lat]));
+    this.map.getLayers().pop();
+    this.map.addLayer(pointLayer);
   }
 }
