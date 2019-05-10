@@ -51,7 +51,8 @@ class MapComponent {
           new ol.layer.Tile({
             source: new ol.source.OSM()
           }),
-          new ol.layer.Vector({}) // Empty Layer for addMarker
+          new ol.layer.Vector({}), // Empty Layer for addLine
+          new ol.layer.Vector({})  // Empty Layer for addMarker
         ],
         view: new ol.View({ // setView
           center: ol.proj.fromLonLat([126.5, 22.5]),
@@ -70,13 +71,26 @@ class MapComponent {
   // Add pointer
   addMarker () {
     this.coorContainer.push(this.getMousePosition());
-    this.relocate();
+    this.relocate(); // line first then points
+    if(this.coorContainer.length > 1){ // point numbers > 1 draw line
+      this.addLine();
+    }
   }
 
-  // Clear Pointer
+  // Add Line
+  addLine () {
+    let featureLine = new ol.Feature({ geometry: new ol.geom.LineString(this.coorContainer) });
+    let sourceLine = new ol.source.Vector({ features: [featureLine] });
+    let vectorLayer = new ol.layer.Vector({ source: sourceLine });
+
+    this.map.getLayers().getArray().splice(1,1,vectorLayer); // replace the previous one
+  }
+
+  // Clear Pointer and Line
   removeMarker () {
     this.coorContainer = [];
     this.relocate();
+    this.addLine();
   }
 
   // Get Coordinate and Return
@@ -91,7 +105,6 @@ class MapComponent {
   relocate () {
     let feature = this.coorContainer.slice();
     let coorCount = 0;
-    console.log(feature);
     for(var i=0; i<feature.length; i++) { // for i in coorCintainer add Feature and set style
       feature[i] = new ol.Feature(new ol.geom.Point(this.coorContainer[coorCount]));
       feature[i].setStyle(this.pointStyle);
@@ -101,7 +114,7 @@ class MapComponent {
     let pointLayer = new ol.layer.Vector ({ source: source });
     // this.map.getLayers().pop();
     // this.map.addLayer(pointLayer);
-    this.map.getLayers().getArray().splice(1,1,pointLayer); // replace the previous one
+    this.map.getLayers().getArray().splice(2,1,pointLayer); // replace the previous one
     this.map.render();
   }
 }
