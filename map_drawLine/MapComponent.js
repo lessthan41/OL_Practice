@@ -26,6 +26,14 @@ class MapComponent {
           zIndex: 5
       })
     ];
+    this.lineStyle = [
+      new ol.style.Style({
+        stroke: new ol.style.Stroke({
+          color: '#edeff7',
+          width: 2
+        })
+      })
+    ];
   }
 
   render () {
@@ -80,6 +88,7 @@ class MapComponent {
   // Add Line
   addLine () {
     let featureLine = new ol.Feature({ geometry: new ol.geom.LineString(this.coorContainer) });
+    featureLine.setStyle(this.lineStyle); // set style
     let sourceLine = new ol.source.Vector({ features: [featureLine] });
     let vectorLayer = new ol.layer.Vector({ source: sourceLine });
 
