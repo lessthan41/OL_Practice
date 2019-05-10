@@ -58,6 +58,13 @@ class MapComponent {
           zoom: 6
         })
       });
+      // Onclick add Marker
+      this.map.on('click', (evt) => { // due to callback problem need arrow function
+        if (evt.dragging) {
+          return;
+        }
+        this.addMarker();
+      });
   }
 
   // Add pointer

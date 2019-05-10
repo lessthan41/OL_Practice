@@ -13,10 +13,7 @@ class DashboardComponent {
   mapInit () {
     this.map.render();
   }
-  // Map onclick
-  mapOnClick () {
-    this.map.addMarker();
-  }
+
   // clearBtn onclick
   clearBtn () {
     this.map.removeMarker();
