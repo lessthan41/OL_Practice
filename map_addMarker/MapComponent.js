@@ -21,7 +21,7 @@ class MapComponent {
               anchorXUnits: 'fraction',
               anchorYUnits: 'fraction',
               opacity: 1,
-              src: 'http://lessthan41.github.io/OL_Practice/Map_init/image/pointer.png'
+              src: 'https://lessthan41.github.io/OL_Practice/map_addMarker/image/pointer.png'
           })),
           zIndex: 5
       })
