@@ -79,12 +79,13 @@ class MapComponent {
     this.relocate();
   }
 
-  // Get Coordinate and Return
+  /* Get Coordinate and Return [x, y] */
   getMousePosition () {
     let currentPosition = $('#mouse-position').text();
-    let lng = parseFloat(currentPosition.substring(0, 8));
-    let lat = parseFloat(currentPosition.substring(10));
-    return (ol.proj.fromLonLat([lng, lat]));
+    let commaPosition = currentPosition.indexOf(',');
+    let x = parseFloat(currentPosition.substring(0, commaPosition));
+    let y = parseFloat(currentPosition.substring(commaPosition+1));
+    return ol.proj.fromLonLat([x, y]);
   }
 
   // Relocate marker
